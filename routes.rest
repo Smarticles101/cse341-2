@@ -1,0 +1,15 @@
+// LOCALHOST
+###
+GET http://localhost:3000/messages
+
+### Create message
+POST http://localhost:3000/messages HTTP/1.1
+content-type: application/json
+
+{
+    "message": "Goodbye World"
+}
+
+### Get message
+GET http://localhost:3000/messages/642f9179e5b7e4bee694fc49
+
