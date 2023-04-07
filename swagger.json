@@ -2,10 +2,10 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "Contacts API",
-    "description": "API to manage contacts"
+    "title": "Messages API",
+    "description": "API to store and manage messages"
   },
-  "host": "cse341-pmx4.onrender.com",
+  "host": "https://cse341-2-97c7.onrender.com/",
   "basePath": "/",
   "schemes": [
     "https"
