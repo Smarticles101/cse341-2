@@ -31,6 +31,12 @@ const createMessage = (req, res) => {
     timestamp: new Date().toISOString(),
   };
 
+  if (message.length < 1) {
+    res.status(400).send("Message cannot be empty");
+  } else if (message.length > 255) {
+    res.status(400).send("Message cannot be longer than 255 characters");
+  }
+
   db.getDB()
     .db()
     .collection("messages")
@@ -40,8 +46,51 @@ const createMessage = (req, res) => {
     });
 };
 
+const updateMessage = (req, res) => {
+  const id = new ObjectId(req.params.id);
+
+  const message = {
+    message: req.body.message,
+    edited: true,
+  };
+
+  if (message.length < 1) {
+    res.status(400).send("Message cannot be empty");
+  } else if (message.length > 255) {
+    res.status(400).send("Message cannot be longer than 255 characters");
+  }
+
+  db.getDB()
+    .db()
+    .collection("messages")
+    .updateOne({ _id: id }, { $set: message })
+    .then((result) => {
+      res.status(204).send(result);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+};
+
+const deleteMessage = (req, res) => {
+  const id = new ObjectId(req.params.id);
+
+  db.getDB()
+    .db()
+    .collection("messages")
+    .deleteOne({ _id: id })
+    .then((result) => {
+      res.status(200).send(result);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+};
+
 module.exports = {
   getMessages,
   getMessageById,
   createMessage,
+  updateMessage,
+  deleteMessage,
 };
