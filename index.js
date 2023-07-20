@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const passport = require("passport");
 const session = require("express-session");
+const { createUserIfNotExists } = require("./db/users");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -60,8 +61,8 @@ passport.use(
       callbackURL: "http://localhost:3000/auth_callback",
     },
     function (accessToken, refreshToken, profile, done) {
-      console.log(profile);
       userProfile = profile;
+      createUserIfNotExists(userProfile);
       return done(null, userProfile);
     }
   )
