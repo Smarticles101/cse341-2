@@ -2,8 +2,6 @@ const { ObjectId } = require("mongodb");
 const db = require("../db/database");
 
 const getMessages = (req, res) => {
-  console.log(req)
-  console.log("wtf")
   db.getDB()
     .db()
     .collection("messages")
