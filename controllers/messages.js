@@ -2,6 +2,8 @@ const { ObjectId } = require("mongodb");
 const db = require("../db/database");
 
 const getMessages = (req, res) => {
+  console.log(req)
+  console.log("wtf")
   db.getDB()
     .db()
     .collection("messages")
@@ -33,6 +35,7 @@ const createMessage = (req, res) => {
                 "write_messages",
             ]
         }] */
+  console.log(req);
 
   if (!session_user) {
     res.status(401).send("Unauthorized");

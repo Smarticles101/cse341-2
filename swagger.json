@@ -13,15 +13,9 @@
   "securityDefinitions": {
     "oAuthSample": {
       "type": "oauth2",
-      "authorizationUrl": "/auth",
-      "flow": "implicit",
-      "scopes": {
-        "write_messages": "write messages",
-        "modify_messages": "edit your own messages",
-        "delete_messages": "delete your own messages",
-        "modify_account": "edit your account",
-        "delete_account": "delete your account"
-      }
+      "authorizationUrl": "https://accounts.google.com/o/oauth2/v2/auth",
+      "tokenUrl": "https://www.googleapis.com/oauth2/v4/token",
+      "flow": "accessCode"
     }
   },
   "paths": {
