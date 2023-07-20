@@ -11,8 +11,8 @@ const doc = {
   securityDefinitions: {
     oAuthSample: {
       type: "oauth2",
-      authorizationUrl: "https://accounts.google.com/o/oauth2/v2/auth",
-      tokenUrl: "https://www.googleapis.com/oauth2/v4/token",
+      authorizationUrl: "/auth",
+      tokenUrl: "/auth_callback",
       flow: "accessCode",
     },
   },
