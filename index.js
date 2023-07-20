@@ -53,12 +53,13 @@ const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 const GOOGLE_CLIENT_ID =
   "626433925888-fh18snt1vaactbd9lnjrujjvv2fi0ft5.apps.googleusercontent.com";
 const GOOGLE_CLIENT_SECRET = "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";
+const callbackURL = process.env.NODE_ENV == "production" ? "https://cse341-2-y9s3.onrender.com/auth_callback" : "http://localhost:3000/auth_callback";
 passport.use(
   new GoogleStrategy(
     {
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/auth_callback",
+      callbackURL: callbackURL,
     },
     function (accessToken, refreshToken, profile, done) {
       userProfile = profile;
