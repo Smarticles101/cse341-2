@@ -6,8 +6,7 @@ routes.get("/auth_callback", passport.authenticate("google", { failureRedirect: 
     res.sendStatus(200);
 });
 routes.get("/logout", (req, res) => {
-    req.logout();
-    res.redirect("/");
+    req.logout(() => res.redirect("/"));
 });
 
 module.exports = routes;
