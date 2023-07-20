@@ -56,6 +56,12 @@ const modifyUser = (req, res) => {
   const id = new ObjectId(req.params.id);
   const session_user = req.session.passport?.user;
 
+  /* #swagger.security = [{
+            "oAuthSample": [
+                "modify_account",
+            ]
+        }] */
+
   if (!session_user || id !== session_user.id) {
     res.status(401).send("Unauthorized");
   }
@@ -83,6 +89,12 @@ const modifyUser = (req, res) => {
 const deleteUser = (req, res) => {
   const id = new ObjectId(req.params.id);
   const session_user = req.session.passport?.user;
+
+  /* #swagger.security = [{
+            "oAuthSample": [
+                "delete_account",
+            ]
+        }] */
 
   if (!session_user || id !== session_user.id) {
     res.status(401).send("Unauthorized");

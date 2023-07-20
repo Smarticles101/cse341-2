@@ -28,6 +28,12 @@ const getMessageById = (req, res) => {
 const createMessage = (req, res) => {
   const session_user = req.session.passport?.user;
 
+  /* #swagger.security = [{
+            "oAuthSample": [
+                "write_messages",
+            ]
+        }] */
+
   if (!session_user) {
     res.status(401).send("Unauthorized");
   }
@@ -56,6 +62,12 @@ const createMessage = (req, res) => {
 const updateMessage = (req, res) => {
   const id = new ObjectId(req.params.id);
   const session_user = req.session.passport?.user;
+
+  /* #swagger.security = [{
+            "oAuthSample": [
+                "modify_messages",
+            ]
+        }] */
 
   if (!session_user) {
     res.status(401).send("Unauthorized");
@@ -87,6 +99,12 @@ const updateMessage = (req, res) => {
 const deleteMessage = (req, res) => {
   const id = new ObjectId(req.params.id);
   const session_user = req.session.passport?.user;
+
+  /* #swagger.security = [{
+            "oAuthSample": [
+                "delete_messages",
+            ]
+        }] */
 
   if (!session_user) {
     res.status(401).send("Unauthorized");

@@ -10,6 +10,20 @@
   "schemes": [
     "https"
   ],
+  "securityDefinitions": {
+    "oAuthSample": {
+      "type": "oauth2",
+      "authorizationUrl": "/auth",
+      "flow": "implicit",
+      "scopes": {
+        "write_messages": "write messages",
+        "modify_messages": "edit your own messages",
+        "delete_messages": "delete your own messages",
+        "modify_account": "edit your account",
+        "delete_account": "delete your account"
+      }
+    }
+  },
   "paths": {
     "/messages/": {
       "get": {
@@ -47,7 +61,14 @@
           "401": {
             "description": "Unauthorized"
           }
-        }
+        },
+        "security": [
+          {
+            "oAuthSample": [
+              "write_messages"
+            ]
+          }
+        ]
       }
     },
     "/messages/{id}": {
@@ -102,7 +123,14 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "oAuthSample": [
+              "modify_messages"
+            ]
+          }
+        ]
       },
       "delete": {
         "description": "",
@@ -124,7 +152,14 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "oAuthSample": [
+              "delete_messages"
+            ]
+          }
+        ]
       }
     },
     "/users/": {
@@ -190,7 +225,14 @@
           "401": {
             "description": "Unauthorized"
           }
-        }
+        },
+        "security": [
+          {
+            "oAuthSample": [
+              "modify_account"
+            ]
+          }
+        ]
       },
       "delete": {
         "description": "",
@@ -209,7 +251,14 @@
           "401": {
             "description": "Unauthorized"
           }
-        }
+        },
+        "security": [
+          {
+            "oAuthSample": [
+              "delete_account"
+            ]
+          }
+        ]
       }
     },
     "/api-docs": {
