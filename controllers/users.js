@@ -3,7 +3,7 @@ const db = require("../db/database");
 const passport = require("passport");
 
 const getUsers = (req, res) => {
-  const session_user = req.session.passport.user;
+  const session_user = req.session.passport?.user;
   db.getDB()
     .db()
     .collection("users")
@@ -14,7 +14,7 @@ const getUsers = (req, res) => {
         data.map((user) => {
           // only return non-sensitive information
 
-          if (user._id === session_user.id) {
+          if (session_user && user._id === session_user.id) {
             return user;
           }
           return {
@@ -29,7 +29,7 @@ const getUsers = (req, res) => {
 
 const getUserById = (req, res) => {
   const id = new ObjectId(req.params.id);
-  const session_user = req.session.passport.user;
+  const session_user = req.session.passport?.user;
 
   db.getDB()
     .db()
@@ -39,7 +39,7 @@ const getUserById = (req, res) => {
     .then((data) => {
       res.status(200).send(
         data.map((user) => {
-          if (user._id === session_user.id) {
+          if (session_user && user._id === session_user.id) {
             return user;
           }
           return {
@@ -54,9 +54,9 @@ const getUserById = (req, res) => {
 
 const modifyUser = (req, res) => {
   const id = new ObjectId(req.params.id);
-  const session_user = req.session.passport.user;
+  const session_user = req.session.passport?.user;
 
-  if (id !== session_user.id) {
+  if (!session_user || id !== session_user.id) {
     res.status(401).send("Unauthorized");
   }
 
@@ -82,9 +82,9 @@ const modifyUser = (req, res) => {
 
 const deleteUser = (req, res) => {
   const id = new ObjectId(req.params.id);
-  const session_user = req.session.passport.user;
+  const session_user = req.session.passport?.user;
 
-  if (id !== session_user.id) {
+  if (!session_user || id !== session_user.id) {
     res.status(401).send("Unauthorized");
   }
 
