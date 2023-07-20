@@ -26,9 +26,16 @@ const getMessageById = (req, res) => {
 };
 
 const createMessage = (req, res) => {
+  const session_user = req.session.passport?.user;
+
+  if (!session_user) {
+    res.status(401).send("Unauthorized");
+  }
+
   const message = {
     message: req.body.message,
     timestamp: new Date().toISOString(),
+    senderId: session_user._id,
   };
 
   if (message.length < 1) {
@@ -48,6 +55,11 @@ const createMessage = (req, res) => {
 
 const updateMessage = (req, res) => {
   const id = new ObjectId(req.params.id);
+  const session_user = req.session.passport?.user;
+
+  if (!session_user) {
+    res.status(401).send("Unauthorized");
+  }
 
   const message = {
     message: req.body.message,
@@ -63,7 +75,7 @@ const updateMessage = (req, res) => {
   db.getDB()
     .db()
     .collection("messages")
-    .updateOne({ _id: id }, { $set: message })
+    .updateOne({ _id: id, senderId: session_user._id }, { $set: message })
     .then((result) => {
       res.status(204).send(result);
     })
@@ -74,11 +86,16 @@ const updateMessage = (req, res) => {
 
 const deleteMessage = (req, res) => {
   const id = new ObjectId(req.params.id);
+  const session_user = req.session.passport?.user;
+
+  if (!session_user) {
+    res.status(401).send("Unauthorized");
+  }
 
   db.getDB()
     .db()
     .collection("messages")
-    .deleteOne({ _id: id })
+    .deleteOne({ _id: id, senderId: session_user._id })
     .then((result) => {
       res.status(200).send(result);
     })
